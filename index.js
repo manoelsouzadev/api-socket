@@ -1,5 +1,13 @@
 const http = require("http").Server();
 const io = require("socket.io")(http);
+const cors = require("cors");
+
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 io.on("connection", (socket) => {
   console.log("Usuário conectado!");
