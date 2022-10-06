@@ -1,13 +1,10 @@
 const http = require("http").Server();
-const io = require("socket.io")(http);
-const cors = require("cors");
-
-const corsOptions = {
-  origin: '*',
-  optionsSuccessStatus: 200
-};
-
-app.use(cors(corsOptions));
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
+  }
+});
 
 io.on("connection", (socket) => {
   console.log("Usuário conectado!");
