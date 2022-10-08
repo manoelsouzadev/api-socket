@@ -2,18 +2,8 @@
 const mongoose = require('mongoose');
 const repository = require("../repositories/conversa-repository");
 
-exports.save = async data => {
-  await repository.save(data).then(() => {
-    res.status(201).send({
-      message: 'Mensagem cadastrada com sucesso!'
-    });
-  })
-  .catch(e => {
-    res.status(400).send({
-      message: 'Falha ao cadastrar mensagem',
-      data: e
-    });
-  });
+exports.save = async (req, res, data) => {
+  await repository.save(req, res, data);
 };
 
 exports.getByIdRoom = async (room) => {
@@ -21,7 +11,7 @@ exports.getByIdRoom = async (room) => {
 };
 
 exports.put = async (id, data) => {
-   await  repository.put(id, data);
+   await  repository.put(req, res, id, data);
 };
 
 exports.delete = async(id) => {
