@@ -1,15 +1,27 @@
 const http = require("http").Server();
+const mongoose = require("mongoose");
+const db = require("./config/db");
+const conversaService = require("./services/conversa-service");
+ mongoose.connect(
+ //db.mongoURI
+ process.env.MONGO_URL
+ );
+
+// const mensagem = require("./models/mensagem");
+
 const io = require("socket.io")(http, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"]
-  }
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  },
 });
 
 io.on("connection", (socket) => {
   console.log("Usuário conectado!");
 
-  socket.on("connect_to_room", (data) => {
+  socket.on("connect_to_room", async (data, callback) => {
+    const mensagens = await conversaService.getByIdRoom(data.room);
+    console.log(mensagens)
     console.log("conectado na sala");
     socket.join(data.room);
     console.log("Usuário conectado na sala: " + data.room);
@@ -17,7 +29,9 @@ io.on("connection", (socket) => {
       user: data.user,
       event: "conectado",
     });
-  });
+
+    callback(mensagens);
+  },);
 
   socket.on("user-connected", (data) => {
     socket.user = data.user;
@@ -34,8 +48,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("message_to_room", (data) => {
-    io.in(data.room).emit("message", data);
     console.log(data);
+    conversaService.save(data);
+    io.in(data.room).emit("message", data);
   });
 
   socket.on("disconnect", () => {
@@ -46,4 +61,4 @@ io.on("connection", (socket) => {
 let port = Number(process.env.PORT || 3000);
 http.listen(port, () => {
   console.log("Listening on: " + port);
-}); 
+});
