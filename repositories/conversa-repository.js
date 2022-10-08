@@ -5,7 +5,7 @@ const Mensagem = require("../models/mensagem");
 exports.save = async (req, res, data) => {
   console.log("chegou aqui");
   var mensagem = new Mensagem(data);
-  await mensagem.save
+  await mensagem.save()
     .then(() => {
       res.status(201).send({
         message: "Mensagem cadastrada com sucesso!",
