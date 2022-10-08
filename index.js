@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const db = require("./config/db");
 const conversaService = require("./services/conversa-service");
  mongoose.connect(
- db.mongoURI
- //process.env.MONGO_URL
+ //db.mongoURI
+ process.env.MONGO_URL
  );
 
 // const mensagem = require("./models/mensagem");
