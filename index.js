@@ -17,7 +17,7 @@ const io = require("socket.io")(http, {
 });
 
 io.on("connection", (socket) => {
-  console.log("Usuário conectado!");
+  console.log("Usuário conectado!"); 
 
   socket.on("connect_to_room", async (data, callback) => {
     const mensagens = await conversaService.getByIdRoom(data.room);
