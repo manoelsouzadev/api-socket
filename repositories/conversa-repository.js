@@ -18,7 +18,7 @@ exports.put = async (id, data) => {
       idUsuario: data.idUsuario,
       nomeUsuario: data.nomeUsuario,
       mensagem: data.mensagem,
-      dataMensagem: data.dataMensagem,
+      dataMensagem: data.dataMensagem
     },
   });
 };
