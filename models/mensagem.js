@@ -12,6 +12,9 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  idUsuarioAtendimento: {
+    type: String,
+  },
   nomeUsuario: {
     type: String,
     required: true,
@@ -23,6 +26,9 @@ const schema = new Schema({
   dataMensagem: {
     type: String,
     required: true,
+  },
+  lida:{
+    type: Number
   }
 });
 
