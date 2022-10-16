@@ -22,11 +22,11 @@ const schema = new Schema({
   mensagem: {
     type: String,
     required: true,
-  }, 
+  },
   dataMensagem: {
     type: String,
     required: true,
   }
 });
 
-module.exports = mongoose.model("Mensagem", schema); 
+module.exports = mongoose.model("Mensagem", schema);
